@@ -4,12 +4,13 @@ from scipy.integrate import solve_ivp
 import math
 
 
-def Solve(p, op, ec):
+def Solve(p, op, ec, e=None):
     return solve_ivp(__PID04_ODE,
                      op.TimeDomain,
                      op.InitialCondition,
                      method='RK45',
                      dense_output=False,
+                     events=e,
                      args=(ec,),
                      rtol=op.RelativeTolerance,
                      atol=op.AbsoluteTolerance)
@@ -17,7 +18,6 @@ def Solve(p, op, ec):
 
 def __PID04_ODE(t, x, ec):
     # ODE Function
-    # dx = [0] * 2  # second order ODE
     dx = [0 for _ in range(0, 2)]
     rx1 = 1.0 / x[0]
     p = rx1**ec[10]
@@ -33,8 +33,6 @@ def __PID04_ODE(t, x, ec):
     rd = 1.0 / d
     dx[0] = x[1]
     dx[1] = n * rd
-    # print((ec[5] * s1 + ec[6] * s2))
-    # input("wait")
     return dx
 
 
@@ -48,7 +46,7 @@ def GetEquationConstants(p):
     # Frequencies
     f1 = 2 * math.pi * p.P2 * 1000  # angular frequency1 [rad/s]
     f2 = 2 * math.pi * p.P4 * 1000  # angular frequency2 [rad/s]
-    ec = [0] * 17  # Equation Constants
+    ec = [0 for _ in range(0, 17)]
 
     ec[0] = (2 * p.Material.ST / p.P6 + p_inf - p.Material.Pv) * \
             (2.0 * math.pi / p.P6 / f1) ** 2 / p.Material.Rho

@@ -6,7 +6,7 @@ from numpy import savetxt
 
 # Parameters
 P = Parameters
-P.P1 = 5.0      # Pressure Amplitude1 [bar]
+P.P1 = 2.0      # Pressure Amplitude1 [bar]
 P.P2 = 200.0    # Frequency1          [kHz]
 P.P3 = 2.0      # Pressure Amplitude2 [bar]
 P.P4 = 20.0     # Frequency2          [kHz]
@@ -21,8 +21,8 @@ P.P9 = 1.4      # Polytrophic Exponent
 # P.Material.PrintMaterialProperties()
 
 OP = OperationParameters
-OP.TimeDomain = [1, 10]
-OP.InitialCondition = [1, 1]
+OP.TimeDomain = [0, 10]
+OP.InitialCondition = [1, 0]
 
 EC = GetEquationConstants(P)
 

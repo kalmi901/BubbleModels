@@ -6,19 +6,20 @@ from numpy import savetxt
 
 # Parameters
 P = Parameters
-P.P1 = 2.0      # Pressure Amplitude1 [bar]
-P.P2 = 200.0    # Frequency1          [kHz]
-P.P3 = 2.0      # Pressure Amplitude2 [bar]
+P.P1 = 3.5      # Pressure Amplitude1 [bar]
+P.P2 = 29.00    # Frequency1          [kHz]
+P.P3 = 0.0      # Pressure Amplitude2 [bar]
 P.P4 = 20.0     # Frequency2          [kHz]
-P.P5 = 1.0*pi   # Phase Shift         [0-2pi]
+P.P5 = 1.5*pi   # Phase Shift         [0-2pi]
 P.P6 = 10*1e-6  # Equilibrium Radius  [x*1e-6m = micron]
 P.P7 = 1.0      # Ambient Pressure    [bar]
-P.P8 = 20.0     # Ambient Temperature [°C]
+P.P8 = 40.0     # Ambient Temperature [°C]
 P.P9 = 1.4      # Polytrophic Exponent
-# P.Material = Water()
+P.Material = Glycerin(P.P8)
 
 
-# P.Material.PrintMaterialProperties()
+P.Material.PrintMaterialProperties()
+
 
 OP = OperationParameters
 OP.TimeDomain = [0, 10]

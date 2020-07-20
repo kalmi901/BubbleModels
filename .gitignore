@@ -1,6 +1,7 @@
 .idea
 __pycache__/*
 Models/__pycache__/*
+Materials/__pycache__/*
 PlotTestResults.m
 test.txt
 *.asv

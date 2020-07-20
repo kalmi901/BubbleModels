@@ -1,3 +1,6 @@
+CelsiusToKelvin = 273.14
+
+
 class MaterialProperties:
     # Default variables (water 20°C)
     MatName = "Water (default)"
@@ -23,8 +26,15 @@ class Water(MaterialProperties):
 
 
 class Glycerin(MaterialProperties):
-    def __init__(self):
-        print("Material Properties: Glycerine")
+    def __init__(self, t):
+        # Material Properties depend on the ambient temperature (t)
+        import Materials.Glycerin as MatProp
+        self.MatName = "Glycerin"
+        self.Pv = MatProp.getSaturationPressure(t+CelsiusToKelvin)
+        self.Rho = MatProp.getLiquidDensity(t)
+        self.ST = MatProp.getSurfaceTension(t)
+        self.Vis = MatProp.getLiquidDynamicViscosity(t)
+        self.CL = MatProp.getSoundSpeed(t)
 
 
 class Parameters:

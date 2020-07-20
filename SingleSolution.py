@@ -13,9 +13,16 @@ P.P4 = 20.0     # Frequency2          [kHz]
 P.P5 = 1.5*pi   # Phase Shift         [0-2pi]
 P.P6 = 10*1e-6  # Equilibrium Radius  [x*1e-6m = micron]
 P.P7 = 1.0      # Ambient Pressure    [bar]
-P.P8 = 40.0     # Ambient Temperature [°C]
+P.P8 = 55.0     # Ambient Temperature [°C]
 P.P9 = 1.4      # Polytrophic Exponent
 P.Material = Glycerin(P.P8)
+
+omega, frequency = LinearDampedFrequency(P)
+
+P.P2 = 1 * frequency
+
+print(omega)
+print(frequency)
 
 
 P.Material.PrintMaterialProperties()

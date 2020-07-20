@@ -1,3 +1,4 @@
+import math
 CelsiusToKelvin = 273.14
 
 
@@ -44,7 +45,7 @@ class Parameters:
     P3: float = 1.0     # bar
     P4: float = 20      # kHZ
     P5: float = 0       # -
-    P6: float = 1       # m
+    P6: float = 1*1e-6  # m
     P7: float = 1       # bar
     P8: float = 20      # °C
     P9: float = 1.4
@@ -64,3 +65,12 @@ def PrintEquationConstants(c):
     for i in range(0, len(c)):
         print("EC[" + f"{i:.0f}" + "] = " + f"{c[i]:.3e}")
     print("----------------------------------\n")
+
+
+def LinearDampedFrequency(p):
+    omega = (3 * p.P9 * (p.P7*1e5 - p.Material.Pv) / p.Material.Rho / p.P6**2 +
+             2 * (3 * p.P9 - 1) * p.Material.ST / p.Material.Rho / p.P6**3)**0.5    # rad/s
+
+    frequency = omega/(2*math.pi) / 1000    # kHz
+
+    return omega, frequency

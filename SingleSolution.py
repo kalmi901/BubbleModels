@@ -6,21 +6,21 @@ from numpy import savetxt
 
 # Parameters
 P = Parameters
-P.P1 = 1.0      # Pressure Amplitude1 [bar]
+P.P1 = 1.1      # Pressure Amplitude1 [bar]
 P.P2 = 29.00    # Frequency1          [kHz]
 P.P3 = 0.0      # Pressure Amplitude2 [bar]
 P.P4 = 20.0     # Frequency2          [kHz]
 P.P5 = 1.5*pi   # Phase Shift         [0-2pi]
 P.P6 = 100*1e-6 # Equilibrium Radius  [x*1e-6m = micron]
 P.P7 = 1.0      # Ambient Pressure    [bar]
-P.P8 = 40.0     # Ambient Temperature [°C]
+P.P8 = 70.0     # Ambient Temperature [°C]
 P.P9 = 1.4      # Polytrophic Exponent
 P.Material = Glycerin(P.P8)
 P.Mode = 2      # Spherical Mode
 
 omega, frequency = LinearDampedFrequency(P)
 
-P.P2 = 2 * frequency
+P.P2 = 0.25 * frequency
 
 print(omega)
 print(frequency)
@@ -44,7 +44,8 @@ for iteration in range(0, MaxTransientIter):
     OP.InitialCondition[1] = Solution.y[1][-1]
 
 # Stability curve
-OP.InitialCondition[2] = 1e-4
+OP.InitialCondition[2] = OP.InitialCondition[0]*1e-1
+print(OP.InitialCondition[2])
 OP.TimeDomain = [0, 10]
 Solution = Solve(P, OP, EC)
 
